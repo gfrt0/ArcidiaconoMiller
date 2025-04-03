@@ -5,7 +5,7 @@ The code is structured to be legible rather than efficient. Notebooks are meant 
 The code for FIML estimators is provided, but I do not run the Monte Carlos given the long expected computation time. 
 
 #### Notebooks
-- ```ArcidiaconoMiller_Case1```: _To obtain the estimates reported in column 4 of Table I (when s is ignored), we estimate the CCP’s using_ $W_{1t} ≡ (1, x_{1t}, x^2_{1t}, x_2, x^2_2, x_{1t} x_2) _as regressors in a logit._ (Supp. Mat, p.12)
+- ```ArcidiaconoMiller_Case1```: _To obtain the estimates reported in column 4 of Table I (when s is ignored), we estimate the CCP’s using_ $W_{1t} ≡ (1, x_{1t}, x^2_{1t}, x_2, x^2_2, x_{1t} x_2)$ _as regressors in a logit._ (Supp. Mat, p.12)
 - ```ArcidiaconoMiller_Case2```: _For the parameters reported in column 3, $W_{1t}$ is fully interacted with $W_{2t} ≡ (1, s, t, st, t^2, st^2)$, which is 36 parameters to estimate in the logit generating the CCP’s. Since s is observed, this flexible logit is estimated once._ (Supp. Mat, p.13)
 
 #### Content 
