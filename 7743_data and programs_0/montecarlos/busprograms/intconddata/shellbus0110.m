@@ -57,6 +57,8 @@ alphac2=[0;-.1;0];
 MC=50;
 for MC=1:50;
     
+    fprintf('Monte Carlo %d\n', MC);
+
     %generating the data
     
     [Y,X,Z,Xstate,Zstate,State,TFV]=genbus4(alpha,N,T,xtran,xtranc,xbin,zbin,xval,zval);
@@ -71,16 +73,9 @@ for MC=1:50;
     t2=[t2;t2];
     stemp=[zeros(N,1);ones(N,1)];
     
-    %estimating FIML
-    tic
-    
-    [bf]=fminunc('likebusML4',alphaf,o1,[Y;Y],stemp,N,T,[X;X],[Zstate;Zstate],[Xstate;Xstate],xtran,tbin,zbin,xbin,xval,Z);
-    tf1=toc
-    
-    Tf1=[Tf1;toc];
-    Bf1=[Bf1;bf']; 
     %estimating with data ccps
-        
+    fprintf('CCP estimation \n');
+    
     tic
 
     %setting up data for reduced form logit
@@ -103,7 +98,7 @@ for MC=1:50;
     [fvt1]=fvdata(b1,RX1,tbin,xbin,Zstate,Xstate,xtran,N,T);
     
     %starting the EM algorithm
-    
+        
     j=0;
    
     bccp=alphac(1:4);
@@ -112,9 +107,12 @@ for MC=1:50;
     intcondX=[ones(N,1) X(1:N,1) Z(1:N,1)];
     binit=zeros(3,1);
     
-    cond=0; 
+    cond=0;
     lp=[];
     while cond==0
+    
+        pi = reshape(PType, N, 2)
+        fprintf('EM iteration %d\n. Pi: %d', j);
     
         %updating PType
         %first getting the type-specific likelihoods
