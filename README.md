@@ -9,8 +9,9 @@ The code for FIML estimators is provided, but I do not run the Monte Carlos give
 - ```ArcidiaconoMiller_Case2```: _For the parameters reported in column 3,_ $W_{1t}$ _is fully interacted with_ $W_{2t} ≡ (1, s, t, st, t^2, st^2)$_, which is 36 parameters to estimate in the logit generating the CCP’s. Since s is observed, this flexible logit is estimated once._ (Supp. Mat, p.13)
 - ```ArcidiaconoMiller_Case3```: _When s is unobserved, the flexible logit described in the previous case is estimated at each iteration of the EM algorithm; at the_ $m$_th iteration, the conditional probabilities of being in each observed state, _$q_s^m$_ , are used to weight the flexible logit._ (Supp. Mat, p.13)
 
-##### Notation
-I call $x_3$ what AM call $s$. 
+##### Notation et cetera
+- I call $x_3$ what AM call $s$. 
+- My V function returns V; AM compute $\beta$V. 
 
 #### Content 
 ```7743_data and programs_0``` is the replication material downloaded from the Econometrica webpage on April, 1st 2025.

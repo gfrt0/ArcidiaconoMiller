@@ -15,7 +15,7 @@ t=2;
 
 while t<T+12
     
-    Adj(t)=.7*Adj(t)+.5*norminv(rand());
+    Adj(t)=.7*Adj(t)+.5*randn(1);
     t=t+1;
 end
 
@@ -35,24 +35,30 @@ while t>1
     t=t-1;
 end; 
 
-Y=zeros(N,T2+10);
-X=zeros(N,1);
-Zstate=ceil(length(zval)*rand(N,1));
 State=(rand(N,1)>Pi);
+Y=zeros(N,T2+10);
+Zstate=ceil(length(zval)*rand(N,1));
+X=zeros(N,1);
 
 Xstate=ones(N,T2+1+10);
 Draw=rand(N,T2+10);
 Draw2=rand(N,T2+10);
-
+Draw3=rand(N,T2+10);
+Xstate=X+1;
 for n=1:N;
     
     Z(n,1)=zval(Zstate(n,1));
+    adj0=(Zstate(n)-1)*xbin+1;
+    z2=(Zstate(n)-1)*xbin+1;
+    z3=z2+xbin-1;
     for t=1:T2+10;
-        FVT(n,t)=(xtran(Xstate(n,t)+(Zstate(n)-1)*xbin,:)*FV((Zstate(n)-1)*xbin+1:Zstate(n)*xbin,State(n)+1,t+1))-(xtran((Zstate(n)-1)*xbin+1,:)*FV((Zstate(n)-1)*xbin+1:Zstate(n)*xbin,State(n)+1,t+1));
-        util1=alpha(1)+Adj(t)+alpha(2)*X(n,t)+alpha(3)*State(n) + (xtran(Xstate(n,t)+(Zstate(n)-1)*xbin,:)*FV((Zstate(n)-1)*xbin+1:Zstate(n)*xbin,State(n)+1,t+1));
-        util0=(xtran((Zstate(n)-1)*xbin+1,:)*FV((Zstate(n)-1)*xbin+1:Zstate(n)*xbin,State(n)+1,t+1));
+        adj=Xstate(n,t)+(Zstate(n)-1)*xbin;
+        FVT(n,t)=(xtran(adj,:)*FV(z2:z3,State(n)+1,t+1))-(xtran(adj0,:)*FV(z2:z3,State(n)+1,t+1));
+        util1=alpha(1)+Adj(t)+alpha(2)*X(n,t)+alpha(3)*State(n) + (xtran(adj,:)*FV(z2:z3,State(n)+1,t+1));
+        util0=(xtran(adj0,:)*FV(z2:z3,State(n)+1,t+1));
         dem=exp(util1)+exp(util0);
         p0=exp(util0)./dem;
+        p1=1-p0;
         Y(n,t)=1-(Draw(n,t)<p0);
         Xstate(n,t+1)=1+(Y(n,t)==1).*sum((Draw2(n,t)*ones(1,xbin-1))>xtranc(Xstate(n,t),1:xbin-1,Zstate(n,1)),2);
         X(n,t+1)=xval(Xstate(n,t+1));
@@ -63,3 +69,7 @@ Y=Y(:,11:T2+10);
 X=X(:,11:T2+10);
 Xstate=Xstate(:,11:T2+10);
 FVT=FVT(:,11:T2+10);
+
+        
+
+    
