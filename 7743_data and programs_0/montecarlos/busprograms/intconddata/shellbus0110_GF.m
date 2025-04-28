@@ -1,6 +1,8 @@
 %shell for bus program
 rng(44042, 'twister');
 
+cd('D:/Dropbox (Personal)/git/ArcidiaconoMiller/7743_data and programs_0/montecarlos/busprograms/intconddata')
+
 clear all;
 
 Bccp=[];
@@ -127,6 +129,8 @@ b1 = [
     0.0487;
     0.1410
 ];
+
+wlogitd(b1, y2 == 0, xx, PType)
 
 % calculating fv terms
 
